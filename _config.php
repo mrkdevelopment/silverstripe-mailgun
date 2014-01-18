@@ -1,6 +1,4 @@
 <?php 
-	require 'vendor/autoload.php';
-
 	use Mrk\Mailgun\Mailer as MrkMailgunMailer;
 
 	define('MAILGUN_KEY', 'key-01zghfgcxo4ta4t4j7h8g9pyi4xfgmn0');
