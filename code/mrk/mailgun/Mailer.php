@@ -34,6 +34,9 @@ class Mailer extends \Mailer{
                         'text'    => $plainContent
                        );
 
+		$message = $this->addCustomHeaders($message, $customheaders);
+
+
 		return $this->mailgun
 					->sendMessage(MAILGUN_DOMAIN, $message, $attachedFiles);
 
@@ -65,9 +68,32 @@ class Mailer extends \Mailer{
 			$message['text'] = $plainContent;
 
 
+		$message = $this->addCustomHeaders($message, $customheaders);
+
+
 		return $this->mailgun
 					->sendMessage(MAILGUN_DOMAIN, $message, $attachedFiles);
 
+
+	}
+
+
+
+	/**
+	 * [addCustomHeaders description]
+	 * @param [type] $message [description]
+	 * @param [type] $headers [description]
+	 */
+	private function addCustomHeaders($message, $headers){
+		unset($headers['X-SilverStripeSite']);
+
+		if($headers){
+			foreach ($headers as $key => $value) {
+				$message[$key] = $value;
+			}
+		}
+
+		return $message;
 
 	}
 }
